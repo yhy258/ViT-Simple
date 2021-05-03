@@ -71,7 +71,7 @@ with torch.no_grad():
     for x, y in tqdm(test_dataloader):
         x, test_y = x.to(DEVICE), y.to(DEVICE)
         pred = vit(x)  # [BS, N+1]가 나옴.
-        # pred = pred.index_select(index=torch.tensor([0], device=DEVICE),dim=1).squeeze(1) # N+1개 중 class token인 가장 앞에거 가져옴.
+
         _, pred_idx = torch.max(pred, 1)
 
         now_correct = (pred_idx == test_y).sum().item()
